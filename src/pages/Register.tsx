@@ -5,6 +5,7 @@ import axios from "@/lib/axios";
 import { AppDispatch } from "@/store";
 import { login } from "@/store/slices/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
+import * as axiosLib from "axios";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -55,7 +56,7 @@ const Register = () => {
             await dispatch(login({ username: data.username, password: data.password }));
             navigate("/home");
         } catch (err) {
-            if (axios.isAxiosError(err) && err.response) {
+            if (axiosLib.isAxiosError(err) && err.response) {
                 setFormError(err.response.data.detail || "Registration failed");
             } else {
                 setFormError("An unexpected error occurred");

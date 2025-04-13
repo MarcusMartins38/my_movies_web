@@ -2,10 +2,11 @@ import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RootState } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { fetchUserProfile } from "@/store/slices/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { z } from "zod";
 
 const accountSchema = z
@@ -24,14 +25,40 @@ const accountSchema = z
 type AccountFormData = z.infer<typeof accountSchema>;
 
 export default function AccountSettings() {
-    const user = useSelector<RootState>((state) => state.auth.user);
+    const dispatch = useAppDispatch();
+    const { user, accessToken } = useAppSelector((state) => state.auth);
+
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isDirty },
+        reset,
     } = useForm<AccountFormData>({
         resolver: zodResolver(accountSchema),
+        defaultValues: {
+            username: "",
+            email: "",
+            currentPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+        },
     });
+
+    useEffect(() => {
+        if (accessToken && !user) {
+            dispatch(fetchUserProfile());
+        }
+    }, [accessToken, user, dispatch]);
+
+    useEffect(() => {
+        if (user) {
+            reset((prev) => ({
+                ...prev,
+                username: user.username,
+                email: user.email,
+            }));
+        }
+    }, [user, reset]);
 
     const onSubmit = (data: AccountFormData) => {
         console.log("Dados para atualizar:", data);
@@ -82,7 +109,7 @@ export default function AccountSettings() {
                                 )}
                             </div>
 
-                            <Button type="submit" className="w-full">
+                            <Button type="submit" disabled={!isDirty} className="w-full">
                                 Update Account
                             </Button>
                         </form>

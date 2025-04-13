@@ -17,33 +17,31 @@ interface AuthState {
 
 const initialState: AuthState = {
     user: null,
-    accessToken: localStorage.getItem("accessToken"),
-    refreshToken: localStorage.getItem("refreshToken"),
-    isAuthenticated: !!localStorage.getItem("accessToken"),
+    accessToken: null,
+    refreshToken: null,
+    isAuthenticated: false,
     loading: false,
     error: null,
 };
 
 export const login = createAsyncThunk(
     "auth/login",
-    async ({ username, password }: { username: string; password: string }, thunkAPI) => {
+    async ({ username, password }: { username: string; password: string }, { rejectWithValue }) => {
         try {
-            const response = await api.post("/token/", { username, password });
-            const { access, refresh } = response.data;
-
-            localStorage.setItem("accessToken", access);
-            localStorage.setItem("refreshToken", refresh);
-
-            return { access, refresh };
+            const res = await api.post("/token/", { username, password });
+            return {
+                accessToken: res.data.access,
+                refreshToken: res.data.refresh,
+            };
         } catch (err: any) {
-            return thunkAPI.rejectWithValue(err.response?.data?.detail || "Login failed");
+            return rejectWithValue(err.response?.data?.detail || "Login failed");
         }
     },
 );
 
 export const fetchUserProfile = createAsyncThunk("auth/fetchUserProfile", async () => {
-    const response = await api.get("/users/me/");
-    return response.data;
+    const res = await api.get("/users/me/");
+    return res.data;
 });
 
 const authSlice = createSlice({
@@ -51,8 +49,6 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
             state.user = null;
             state.accessToken = null;
             state.refreshToken = null;
@@ -61,15 +57,11 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(login.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
             .addCase(login.fulfilled, (state, action) => {
-                state.accessToken = action.payload.access;
-                state.refreshToken = action.payload.refresh;
+                state.accessToken = action.payload.accessToken;
+                state.refreshToken = action.payload.refreshToken;
                 state.isAuthenticated = true;
-                state.loading = false;
+                state.error = null;
             })
             .addCase(login.rejected, (state, action) => {
                 state.error = action.payload as string;

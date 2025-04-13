@@ -1,13 +1,12 @@
-import { AppDispatch } from "@/store";
+import { useAppDispatch } from "@/store/hooks";
 import { logout } from "@/store/slices/authSlice";
 import { LogOut, Menu, Settings } from "lucide-react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     return (

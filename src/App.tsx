@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AccountSettings from "./pages/AccountSettings";
 import Home from "./pages/Home";
@@ -6,9 +5,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { PublicRoute } from "./routes/PublicRoute";
+import { useAppSelector } from "./store/hooks";
 
 function App() {
-    const { isAuthenticated, loading } = useSelector((state) => state.auth);
+    const { isAuthenticated, loading } = useAppSelector((state) => state.auth);
 
     if (loading) {
         return (

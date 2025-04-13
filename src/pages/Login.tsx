@@ -1,12 +1,11 @@
 import { AuthLayout } from "@/components/AuthLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AppDispatch, RootState } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { login } from "@/store/slices/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
@@ -18,8 +17,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const Login = () => {
-    const { error, loading } = useSelector<RootState>((state) => state.auth);
-    const dispatch = useDispatch<AppDispatch>();
+    const { error, loading } = useAppSelector((state) => state.auth);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const {
