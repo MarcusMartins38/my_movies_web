@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -54,6 +54,7 @@ export default function EditMovieModal({ open, onClose, movie, onUpdate }: Props
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 w-1/2">
                     <DialogHeader>
                         <DialogTitle>Edit Movie</DialogTitle>
+                        <DialogDescription>Update the info about movie.</DialogDescription>
                     </DialogHeader>
                     <div>
                         <Label>Title</Label>

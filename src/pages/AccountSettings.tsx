@@ -58,7 +58,7 @@ export default function AccountSettings() {
 
                             <div>
                                 <Label>Senha atual</Label>
-                                <Input type="password" {...register("currentPassword")} />
+                                <Input type="current-password" {...register("currentPassword")} />
                                 {errors.currentPassword && (
                                     <p className="text-red-500 text-sm">{errors.currentPassword.message}</p>
                                 )}
@@ -66,7 +66,7 @@ export default function AccountSettings() {
 
                             <div>
                                 <Label>Nova senha</Label>
-                                <Input type="password" {...register("newPassword")} />
+                                <Input type="new-password" {...register("newPassword")} />
                                 {errors.newPassword && (
                                     <p className="text-red-500 text-sm">{errors.newPassword.message}</p>
                                 )}
@@ -74,7 +74,7 @@ export default function AccountSettings() {
 
                             <div>
                                 <Label>Confirmar nova senha</Label>
-                                <Input type="password" {...register("confirmPassword")} />
+                                <Input type="new-password" {...register("confirmPassword")} />
                                 {errors.confirmPassword && (
                                     <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
                                 )}

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -58,6 +58,7 @@ export default function AddWatchedMovieModal({ open, onClose, onMovieAdded }: Ad
             <DialogContent className="bg-white text-black">
                 <DialogHeader>
                     <DialogTitle>Add New Movie</DialogTitle>
+                    <DialogDescription>Add a movie that you already watched.</DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
