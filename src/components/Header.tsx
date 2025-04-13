@@ -1,14 +1,19 @@
 import { useAuth } from "@/context/AuthContext";
 import { LogOut, Menu, Settings } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const { logout } = useAuth();
+    const navigate = useNavigate();
 
     return (
         <header className="flex justify-between items-center p-4">
-            <div className="flex items-center">
+            <div
+                onClick={() => navigate("/home")}
+                className="flex items-center cursor-pointer transition-all duration-300 hover:text-[var(--primary)] "
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -31,7 +36,10 @@ function Header() {
                 <Menu className="cursor-pointer" onClick={() => setMenuOpen((prev) => !prev)} />
                 {menuOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg z-50">
-                        <button className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
+                        <button
+                            onClick={() => navigate("/settings")}
+                            className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                        >
                             <Settings size={16} /> Account Settings
                         </button>
                         <button onClick={logout} className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
