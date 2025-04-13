@@ -42,7 +42,7 @@ export default function EditMovieModal({ open, onClose, movie, onUpdate }: Props
 
     return (
         <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent className="flex w-full gap-6 p-6 max-w-5xl">
+            <DialogContent className="flex w-full gap-6 p-6 max-w-7xl sm:max-w-2xl">
                 <img
                     src={
                         movie?.image_url ||
