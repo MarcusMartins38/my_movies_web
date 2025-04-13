@@ -1,12 +1,14 @@
 import { AuthLayout } from "@/components/AuthLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { AppDispatch, RootState } from "@/store";
+import { login } from "@/store/slices/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { useAuth } from "../context/AuthContext";
 
 const schema = z.object({
     username: z.string().min(1, "Username is required"),
@@ -16,7 +18,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const Login = () => {
-    const { login, loading, error } = useAuth();
+    const { error, loading } = useSelector<RootState>((state) => state.auth);
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
     const {
@@ -29,7 +32,7 @@ const Login = () => {
 
     const onSubmit = async (data: FormData) => {
         try {
-            await login(data.username, data.password);
+            await dispatch(login({ username: data.username, password: data.password }));
             navigate("/home");
         } catch (err) {
             console.error(err);
@@ -58,11 +61,11 @@ const Login = () => {
                             Forgot password?
                         </Link>
                     </div>
-                    <Input type="password" {...register("password")} disabled={loading} />
+                    <Input type="password" autoComplete="on" {...register("password")} disabled={loading} />
                     {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
                 </div>
 
-                <Button type="submit" className="w-full bg-black hover:bg-gray-800" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? (
                         <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Logging in...

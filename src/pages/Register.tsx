@@ -1,16 +1,16 @@
 import { AuthLayout } from "@/components/AuthLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/context/AuthContext";
+import axios from "@/lib/axios";
+import { AppDispatch } from "@/store";
+import { login } from "@/store/slices/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
-
-const API_URL = "http://0.0.0.0:3000/api";
 
 const schema = z
     .object({
@@ -30,7 +30,7 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const [formError, setFormError] = useState("");
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const dispatch = useDispatch<AppDispatch>();
 
     const {
         register,
@@ -45,14 +45,14 @@ const Register = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post(`${API_URL}/users/register/`, {
+            await axios.post(`/users/register/`, {
                 username: data.username,
                 email: data.email,
                 password: data.password,
                 password_confirm: data.confirmPassword,
             });
 
-            await login(data.username, data.password);
+            await dispatch(login({ username: data.username, password: data.password }));
             navigate("/home");
         } catch (err) {
             if (axios.isAxiosError(err) && err.response) {
@@ -87,17 +87,17 @@ const Register = () => {
 
                 <div>
                     <label className="text-sm font-medium">Password</label>
-                    <Input type="password" {...register("password")} disabled={loading} />
+                    <Input type="password" autoComplete="on" {...register("password")} disabled={loading} />
                     {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
                 </div>
 
                 <div>
                     <label className="text-sm font-medium">Confirm Password</label>
-                    <Input type="password" {...register("confirmPassword")} disabled={loading} />
+                    <Input type="password" autoComplete="on" {...register("confirmPassword")} disabled={loading} />
                     {errors.confirmPassword && <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>}
                 </div>
 
-                <Button type="submit" className="w-full bg-black hover:bg-gray-800" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? (
                         <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

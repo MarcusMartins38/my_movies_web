@@ -2,8 +2,10 @@ import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { RootState } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { z } from "zod";
 
 const accountSchema = z
@@ -22,6 +24,7 @@ const accountSchema = z
 type AccountFormData = z.infer<typeof accountSchema>;
 
 export default function AccountSettings() {
+    const user = useSelector<RootState>((state) => state.auth.user);
     const {
         register,
         handleSubmit,

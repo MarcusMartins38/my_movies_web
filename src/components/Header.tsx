@@ -1,11 +1,13 @@
-import { useAuth } from "@/context/AuthContext";
+import { AppDispatch } from "@/store";
+import { logout } from "@/store/slices/authSlice";
 import { LogOut, Menu, Settings } from "lucide-react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const { logout } = useAuth();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
     return (
@@ -42,7 +44,10 @@ function Header() {
                         >
                             <Settings size={16} /> Account Settings
                         </button>
-                        <button onClick={logout} className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
+                        <button
+                            onClick={() => dispatch(logout())}
+                            className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                        >
                             <LogOut size={16} /> Logout
                         </button>
                     </div>
