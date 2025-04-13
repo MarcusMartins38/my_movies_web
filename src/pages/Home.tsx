@@ -24,6 +24,10 @@ export default function Home() {
         fetchMovies();
     }, []);
 
+    const handleDelete = (movieId: number) => {
+        setWatchedMovies((prev) => prev.filter((movie) => movie.id !== movieId));
+    };
+
     return (
         <div className="min-h-screen bg-black text-white">
             {/* Header */}
@@ -43,7 +47,7 @@ export default function Home() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {watchedMovies.map((movie) => (
-                        <WatchedMovieCard movie={movie} />
+                        <WatchedMovieCard key={movie.id} movie={movie} onDelete={handleDelete} />
                     ))}
                 </div>
             </section>

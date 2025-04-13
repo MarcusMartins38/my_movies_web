@@ -22,7 +22,7 @@ type FormData = z.infer<typeof formSchema>;
 type AddWatchedMovieModalProps = {
     open: boolean;
     onClose: () => void;
-    onMovieAdded: (movie: Movie) => void;
+    onMovieAdded: (movie: Omit<Movie, "id">) => void;
 };
 
 export default function AddWatchedMovieModal({ open, onClose, onMovieAdded }: AddWatchedMovieModalProps) {
@@ -46,7 +46,7 @@ export default function AddWatchedMovieModal({ open, onClose, onMovieAdded }: Ad
         try {
             await axios.post("/movies/", data);
             onMovieAdded(data);
-            reset(); // limpa o form
+            reset();
             onClose();
         } catch (error) {
             console.error("Error saving movie:", error);
