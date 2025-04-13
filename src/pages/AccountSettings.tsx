@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-// import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,14 +8,14 @@ import { z } from "zod";
 
 const accountSchema = z
     .object({
-        username: z.string().min(1, "Username obrigatório"),
-        email: z.string().email("Email inválido"),
-        currentPassword: z.string().min(1, "Senha atual obrigatória"),
-        newPassword: z.string().min(6, "Mínimo 6 caracteres"),
-        confirmPassword: z.string().min(1, "Confirme a nova senha"),
+        username: z.string().min(1, "Username is required"),
+        email: z.string().email("Invalid email"),
+        currentPassword: z.string().min(1, "Current password is required"),
+        newPassword: z.string().min(6, "Minimum 6 characters"),
+        confirmPassword: z.string().min(1, "Please confirm the new password"),
     })
     .refine((data) => data.newPassword === data.confirmPassword, {
-        message: "As senhas não coincidem",
+        message: "Passwords do not match",
         path: ["confirmPassword"],
     });
 
@@ -57,7 +56,7 @@ export default function AccountSettings() {
                             </div>
 
                             <div>
-                                <Label>Senha atual</Label>
+                                <Label>Current Password</Label>
                                 <Input type="current-password" {...register("currentPassword")} />
                                 {errors.currentPassword && (
                                     <p className="text-red-500 text-sm">{errors.currentPassword.message}</p>
@@ -65,7 +64,7 @@ export default function AccountSettings() {
                             </div>
 
                             <div>
-                                <Label>Nova senha</Label>
+                                <Label>New Password</Label>
                                 <Input type="new-password" {...register("newPassword")} />
                                 {errors.newPassword && (
                                     <p className="text-red-500 text-sm">{errors.newPassword.message}</p>
@@ -73,7 +72,7 @@ export default function AccountSettings() {
                             </div>
 
                             <div>
-                                <Label>Confirmar nova senha</Label>
+                                <Label>Confirm New Password</Label>
                                 <Input type="new-password" {...register("confirmPassword")} />
                                 {errors.confirmPassword && (
                                     <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
@@ -81,7 +80,7 @@ export default function AccountSettings() {
                             </div>
 
                             <Button type="submit" className="w-full">
-                                Atualizar dados
+                                Update Account
                             </Button>
                         </form>
                     </div>
