@@ -10,7 +10,9 @@ interface WatchedMovieCardProps {
 }
 
 export default function WatchedMovieCard({ movie, onDelete, onClick }: WatchedMovieCardProps) {
-    const handleDelete = async () => {
+    const handleDelete = async (e: React.MouseEvent) => {
+        e.stopPropagation();
+
         try {
             await axios.delete(`/movies/${movie.id}/`);
             onDelete(movie.id);
