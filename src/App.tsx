@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
+import AccountSettings from "./pages/AccountSettings";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -27,6 +28,7 @@ function App() {
 
                 <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
                     <Route path="/home" element={<Home />} />
+                    <Route path="/settings" element={<AccountSettings />} />
                 </Route>
 
                 <Route path="/" element={<Navigate to={isAuthenticated ? "/home" : "/login"} replace />} />
