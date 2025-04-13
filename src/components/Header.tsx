@@ -1,8 +1,10 @@
+import { useAuth } from "@/context/AuthContext";
 import { LogOut, Menu, Settings } from "lucide-react";
 import { useState } from "react";
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { logout } = useAuth();
 
     return (
         <header className="flex justify-between items-center p-4">
@@ -32,7 +34,7 @@ function Header() {
                         <button className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
                             <Settings size={16} /> Account Settings
                         </button>
-                        <button className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
+                        <button onClick={logout} className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
                             <LogOut size={16} /> Logout
                         </button>
                     </div>

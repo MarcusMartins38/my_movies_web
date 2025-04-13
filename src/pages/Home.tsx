@@ -30,10 +30,8 @@ export default function Home() {
 
     return (
         <div className="min-h-screen bg-black text-white">
-            {/* Header */}
             <Header />
 
-            {/* Hero Section Carousel */}
             <RecommendedMoviesCarousel />
 
             {/* Watched Movies Section */}
