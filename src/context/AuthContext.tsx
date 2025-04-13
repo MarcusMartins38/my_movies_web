@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from "@/lib/axios";
+import * as axiosLib from "axios";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 type AuthContextType = {
@@ -15,8 +16,6 @@ type AuthTokens = {
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-const API_URL = "http://0.0.0.0:3000/api";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
 
         try {
-            const response = await axios.post(`${API_URL}/token/refresh/`, {
+            const response = await axios.post(`/token/refresh/`, {
                 refresh: refreshToken,
             });
 
@@ -66,7 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setError(null);
 
         try {
-            const response = await axios.post<AuthTokens>(`${API_URL}/token/`, {
+            const response = await axios.post<AuthTokens>(`/token/`, {
                 username,
                 password,
             });
@@ -78,7 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
             setIsAuthenticated(true);
         } catch (err) {
-            if (axios.isAxiosError(err) && err.response) {
+            if (axiosLib.isAxiosError(err) && err.response) {
                 setError(err.response.data.detail || "Login failed");
             } else {
                 setError("An unexpected error occurred");
