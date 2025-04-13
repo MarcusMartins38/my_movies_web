@@ -1,10 +1,28 @@
+import AddWatchedMovieModal from "@/components/AddWatchedMovieModal";
 import Header from "@/components/Header";
 import RecommendedMoviesCarousel from "@/components/RecommendedMoviesCarousel";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import WatchedMovieCard from "@/components/WatchedMovieCard";
+import axios from "@/lib/axios";
+import { Movie } from "@/types";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-    const [watchedMovies, setWatchedMovies] = useState([]);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [watchedMovies, setWatchedMovies] = useState<Movie[]>([]);
+
+    useEffect(() => {
+        const fetchMovies = async () => {
+            try {
+                const response = await axios.get("/movies/");
+                setWatchedMovies(response.data);
+            } catch (error) {
+                console.error("Failed to load movies", error);
+            }
+        };
+
+        fetchMovies();
+    }, []);
 
     return (
         <div className="min-h-screen bg-black text-white">
@@ -18,22 +36,23 @@ export default function Home() {
             <section className="p-6">
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="text-xl font-semibold">My Watched Movies</h3>
-                    <Button className="bg-white text-black hover:bg-gray-200">Add Watched Movie</Button>
+                    <Button onClick={() => setDialogOpen(true)} className="bg-white text-black hover:bg-gray-200">
+                        Add Watched Movie
+                    </Button>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {watchedMovies.map((movie) => (
-                        <div key={movie.title} className="bg-white text-black rounded-md overflow-hidden shadow-md">
-                            <img src={movie.image} alt={movie.title} className="w-full h-[260px] object-cover" />
-                            <div className="p-3">
-                                <h4 className="font-semibold text-base mb-1 truncate">{movie.title}</h4>
-                                <p className="text-xs text-gray-600 truncate">{movie.year}</p>
-                                <p className="text-xs text-gray-500 truncate">{movie.genres}</p>
-                            </div>
-                        </div>
+                        <WatchedMovieCard movie={movie} />
                     ))}
                 </div>
             </section>
+
+            <AddWatchedMovieModal
+                open={dialogOpen}
+                onClose={() => setDialogOpen(false)}
+                onMovieAdded={(newMovie) => setWatchedMovies((prev) => [...prev, newMovie])}
+            />
         </div>
     );
 }
