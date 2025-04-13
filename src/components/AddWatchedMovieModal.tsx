@@ -22,7 +22,7 @@ type FormData = z.infer<typeof formSchema>;
 type AddWatchedMovieModalProps = {
     open: boolean;
     onClose: () => void;
-    onMovieAdded: (movie: Omit<Movie, "id">) => void;
+    onMovieAdded: (movie: Movie) => void;
 };
 
 export default function AddWatchedMovieModal({ open, onClose, onMovieAdded }: AddWatchedMovieModalProps) {
@@ -44,8 +44,8 @@ export default function AddWatchedMovieModal({ open, onClose, onMovieAdded }: Ad
 
     const onSubmit = async (data: FormData) => {
         try {
-            await axios.post("/movies/", data);
-            onMovieAdded(data);
+            const response = await axios.post("/movies/", data);
+            onMovieAdded(response.data);
             reset();
             onClose();
         } catch (error) {
