@@ -16,6 +16,13 @@
     h3 {
         font-size: var(--text-lg);
     }
+    button {
+        cursor: pointer;
+    }
+    button:hover {
+        opacity: 0.8;
+        transition: all 300ms;
+    }
 }
 
 @theme inline {

@@ -1,4 +1,5 @@
 import AddWatchedMovieModal from "@/components/AddWatchedMovieModal";
+import EditMovieModal from "@/components/EditMovieModal";
 import Header from "@/components/Header";
 import RecommendedMoviesCarousel from "@/components/RecommendedMoviesCarousel";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,8 @@ import { useEffect, useState } from "react";
 export default function Home() {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [watchedMovies, setWatchedMovies] = useState<Movie[]>([]);
+    const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+    const [isEditOpen, setIsEditOpen] = useState(false);
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -26,6 +29,15 @@ export default function Home() {
 
     const handleDelete = (movieId: number) => {
         setWatchedMovies((prev) => prev.filter((movie) => movie.id !== movieId));
+    };
+
+    const handleCardClick = (movie: Movie) => {
+        setSelectedMovie(movie);
+        setIsEditOpen(true);
+    };
+
+    const handleUpdate = (updated: Movie) => {
+        setWatchedMovies((prev) => prev.map((m) => (m.id === updated.id ? updated : m)));
     };
 
     return (
@@ -45,10 +57,24 @@ export default function Home() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {watchedMovies.map((movie) => (
-                        <WatchedMovieCard key={movie.id} movie={movie} onDelete={handleDelete} />
+                        <WatchedMovieCard
+                            key={movie.id}
+                            movie={movie}
+                            onDelete={handleDelete}
+                            onClick={handleCardClick}
+                        />
                     ))}
                 </div>
             </section>
+
+            {selectedMovie && (
+                <EditMovieModal
+                    open={isEditOpen}
+                    onClose={() => setIsEditOpen(false)}
+                    movie={selectedMovie}
+                    onUpdate={handleUpdate}
+                />
+            )}
 
             <AddWatchedMovieModal
                 open={dialogOpen}

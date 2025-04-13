@@ -6,9 +6,10 @@ import { Trash2 } from "lucide-react";
 interface WatchedMovieCardProps {
     movie: Movie;
     onDelete: (id: number) => void;
+    onClick: (movie: Movie) => void;
 }
 
-export default function WatchedMovieCard({ movie, onDelete }: WatchedMovieCardProps) {
+export default function WatchedMovieCard({ movie, onDelete, onClick }: WatchedMovieCardProps) {
     const handleDelete = async () => {
         try {
             await axios.delete(`/movies/${movie.id}/`);
@@ -19,7 +20,10 @@ export default function WatchedMovieCard({ movie, onDelete }: WatchedMovieCardPr
     };
 
     return (
-        <div className="relative bg-white text-black rounded-md overflow-hidden shadow-md group">
+        <div
+            onClick={() => onClick(movie)}
+            className="relative bg-white text-black rounded-md overflow-hidden shadow-md cursor-pointer hover:scale-102 transition-all duration-300 group"
+        >
             <img
                 src={
                     movie?.image_url ||
