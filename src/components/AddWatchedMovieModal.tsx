@@ -61,24 +61,24 @@ export default function AddWatchedMovieModal({ open, onClose, onMovieAdded }: Ad
                 </DialogHeader>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
-                        <Label className="mb-2">Title</Label>
+                        <Label>Title</Label>
                         <Input {...register("title")} />
                         {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
                     </div>
 
                     <div>
-                        <Label className="mb-2">Image URL</Label>
+                        <Label>Image URL</Label>
                         <Input {...register("image_url")} />
                         {errors.image_url && <p className="text-red-500 text-sm">{errors.image_url.message}</p>}
                     </div>
 
                     <div>
-                        <Label className="mb-2">Description</Label>
+                        <Label>Description</Label>
                         <Textarea {...register("description")} />
                     </div>
 
                     <div>
-                        <Label className="mb-2">Rate</Label>
+                        <Label>Rate</Label>
                         <Controller
                             name="rate"
                             control={control}
