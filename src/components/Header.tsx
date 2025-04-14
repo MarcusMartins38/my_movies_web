@@ -3,6 +3,7 @@ import { logout } from "@/store/slices/authSlice";
 import { LogOut, Menu, Settings } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -34,18 +35,21 @@ function Header() {
                 <h1 className="text-2xl font-bold">My Movies</h1>
             </div>
             <div className="relative">
-                <Menu className="cursor-pointer" onClick={() => setMenuOpen((prev) => !prev)} />
+                <div className="flex items-center gap-2">
+                    <ThemeSwitch />
+                    <Menu className="cursor-pointer" onClick={() => setMenuOpen((prev) => !prev)} />
+                </div>
                 {menuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg z-50">
+                    <div className="absolute right-0 mt-2 w-48 rounded border z-50 shadow-md bg-white text-black dark:bg-neutral-900 dark:text-white dark:border-neutral-700">
                         <button
                             onClick={() => navigate("/settings")}
-                            className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                            className="w-full px-4 py-2 hover:opacity-60 flex items-center gap-2"
                         >
                             <Settings size={16} /> Account Settings
                         </button>
                         <button
                             onClick={() => dispatch(logout())}
-                            className="w-full px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                            className="w-full px-4 py-2 hover:opacity-60 flex items-center gap-2"
                         >
                             <LogOut size={16} /> Logout
                         </button>

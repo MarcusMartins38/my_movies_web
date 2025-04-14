@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
 import AccountSettings from "./pages/AccountSettings";
@@ -10,6 +11,12 @@ import { useAppSelector } from "./store/hooks";
 
 function App() {
     const { isAuthenticated, loading } = useAppSelector((state) => state.auth);
+    const theme = useAppSelector((state) => state.theme.mode);
+
+    useEffect(() => {
+        document.documentElement.classList.remove("light", "dark");
+        document.documentElement.classList.add(theme);
+    }, [theme]);
 
     if (loading) {
         return (

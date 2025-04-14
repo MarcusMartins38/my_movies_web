@@ -49,7 +49,7 @@ function RecommendedMoviesCarousel() {
             style={{ backgroundImage: `url(${currentMovie.image})` }}
         >
             <div className="bg-gradient-to-t from-black via-black/60 to-transparent p-6 rounded-md min-w-[300px] max-w-xl">
-                <h2 className="text-4xl font-bold mb-2">{currentMovie.title}</h2>
+                <h2 className="text-4xl text-white font-bold mb-2">{currentMovie.title}</h2>
                 <p className="text-sm text-gray-300 mb-1">{currentMovie.year}</p>
                 <p className="text-sm text-gray-400">{currentMovie.genres}</p>
             </div>
