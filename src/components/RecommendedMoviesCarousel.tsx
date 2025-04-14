@@ -1,29 +1,33 @@
 import { useEffect, useState } from "react";
+import batmanBeginsImg from "../assets/images/batman-begins.jpg";
+import dunkirkImg from "../assets/images/dunkirk.jpg";
+import spiderVerseImg from "../assets/images/spider-verse.jpg";
+import strangerThingsImg from "../assets/images/stranger-things.jpg";
 
 const recommendedMoviesCarousel = [
     {
         title: "Stranger Things",
         year: "USA, 2016 - Current",
         genres: "Action, Adventure, Horror",
-        image: "https://nexo-uploads-beta.s3.amazonaws.com/wp-content/uploads/2023/11/29123634/stranger_binary_291670.jpg",
+        image: strangerThingsImg,
     },
     {
         title: "Batman Begins",
         year: "USA, 2005",
         genres: "Action, Adventure",
-        image: "https://editoralobo.wordpress.com/wp-content/uploads/2020/06/wb-batman-begins-logo-4.jpg",
+        image: batmanBeginsImg,
     },
     {
         title: "Spider-Man: Into The Spider Verse",
         year: "USA, 2018",
         genres: "Animation, Action, Adventure",
-        image: "https://occ-0-8407-2218.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABQJS4sBQPC4_0n_BGxvYsNN8awoe83ynyc5nGRxoY0f_pvlB7boLdq9xoBJIFkdK2nWbHJ1m2bn--fXVwJVC_azrM94Ypjyf-s-I.jpg?r=91f",
+        image: spiderVerseImg,
     },
     {
         title: "Dunkirk",
         year: "USA, 2017",
         genres: "Action, Drama, History",
-        image: "https://images7.alphacoders.com/855/855790.jpg",
+        image: dunkirkImg,
     },
 ];
 
