@@ -49,7 +49,7 @@ function Header() {
                         </button>
                         <button
                             onClick={() => dispatch(logout())}
-                            className="w-full px-4 py-2 hover:opacity-60 flex items-center gap-2"
+                            className="w-full text-[var(--primary)] px-4 py-2 hover:opacity-60 flex items-center gap-2"
                         >
                             <LogOut size={16} /> Logout
                         </button>
