@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "./components/ui/sonner";
 import AccountSettings from "./pages/AccountSettings";
+import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ResetPassword from "./pages/ResetPassword";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { PublicRoute } from "./routes/PublicRoute";
 import { useAppSelector } from "./store/hooks";
@@ -32,6 +34,8 @@ function App() {
             <Routes>
                 <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
                     <Route path="/register" element={<Register />} />
                 </Route>
 
