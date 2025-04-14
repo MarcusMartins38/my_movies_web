@@ -1,3 +1,4 @@
+import strangerThingsImg from "../assets/images/auth-layout.jpg";
 import { ThemeSwitch } from "./ThemeSwitch";
 
 type AuthLayoutProps = {
@@ -13,7 +14,7 @@ export function AuthLayout({ children, title, subtitle, link }: AuthLayoutProps)
             <div
                 className="relative w-full md:w-2/5 bg-cover bg-center flex flex-col text-white p-8"
                 style={{
-                    backgroundImage: `url('https://wallpapers.com/images/hd/movie-pictures-gpui8crwapvn1v96.jpg')`,
+                    backgroundImage: `url(${strangerThingsImg})`,
                 }}
             >
                 <div className="absolute inset-0 bg-black/60 z-0" />
