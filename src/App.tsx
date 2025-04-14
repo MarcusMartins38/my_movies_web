@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Toaster } from "./components/ui/sonner";
 import AccountSettings from "./pages/AccountSettings";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -20,6 +21,7 @@ function App() {
 
     return (
         <BrowserRouter>
+            <Toaster />
             <Routes>
                 <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
                     <Route path="/login" element={<Login />} />

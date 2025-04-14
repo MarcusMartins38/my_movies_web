@@ -1,19 +1,20 @@
 import api from "@/lib/axios";
+import { UpdateUserData } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-interface User {
+type User = {
     username: string;
     email: string;
-}
+};
 
-interface AuthState {
+type AuthState = {
     user: User | null;
     accessToken: string | null;
     refreshToken: string | null;
     isAuthenticated: boolean;
     loading: boolean;
     error: string | null;
-}
+};
 
 const initialState: AuthState = {
     user: null,
@@ -44,6 +45,18 @@ export const fetchUserProfile = createAsyncThunk("auth/fetchUserProfile", async 
     return res.data;
 });
 
+export const updateUserProfile = createAsyncThunk(
+    "auth/updateUserProfile",
+    async (userData: UpdateUserData, { rejectWithValue }) => {
+        try {
+            const res = await api.patch("/users/me/", userData);
+            return res.data;
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data || "Failed to update profile");
+        }
+    },
+);
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -69,6 +82,13 @@ const authSlice = createSlice({
             })
             .addCase(fetchUserProfile.fulfilled, (state, action) => {
                 state.user = action.payload;
+            })
+            .addCase(updateUserProfile.fulfilled, (state, action) => {
+                state.user = action.payload;
+                state.error = null;
+            })
+            .addCase(updateUserProfile.rejected, (state, action) => {
+                state.error = action.payload as string;
             });
     },
 });

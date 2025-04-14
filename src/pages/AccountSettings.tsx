@@ -3,24 +3,33 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchUserProfile } from "@/store/slices/authSlice";
+import { fetchUserProfile, updateUserProfile } from "@/store/slices/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const accountSchema = z
     .object({
         username: z.string().min(1, "Username is required"),
         email: z.string().email("Invalid email"),
-        currentPassword: z.string().min(1, "Current password is required"),
-        newPassword: z.string().min(6, "Minimum 6 characters"),
-        confirmPassword: z.string().min(1, "Please confirm the new password"),
+        currentPassword: z.union([z.string().min(1, "Current password is required"), z.literal("")]).optional(),
+        newPassword: z.union([z.string().min(6, "Minimum 6 characters"), z.literal("")]).optional(),
+        confirmPassword: z.union([z.string().min(1, "Please confirm the new password"), z.literal("")]).optional(),
     })
-    .refine((data) => data.newPassword === data.confirmPassword, {
-        message: "Passwords do not match",
-        path: ["confirmPassword"],
-    });
+    .refine(
+        (data) => {
+            if (data.newPassword && data.newPassword !== data.confirmPassword) {
+                return false;
+            }
+            return true;
+        },
+        {
+            message: "Passwords do not match",
+            path: ["confirmPassword"],
+        },
+    );
 
 type AccountFormData = z.infer<typeof accountSchema>;
 
@@ -33,6 +42,7 @@ export default function AccountSettings() {
         handleSubmit,
         formState: { errors, isDirty },
         reset,
+        setValue,
     } = useForm<AccountFormData>({
         resolver: zodResolver(accountSchema),
         defaultValues: {
@@ -61,8 +71,38 @@ export default function AccountSettings() {
     }, [user, reset]);
 
     const onSubmit = (data: AccountFormData) => {
-        console.log("Dados para atualizar:", data);
-        // TODO: Enviar dados para backend
+        const updateData: any = {};
+
+        if (data.username !== user?.username) {
+            updateData.username = data.username;
+        }
+
+        if (data.email !== user?.email) {
+            updateData.email = data.email;
+        }
+
+        if (data.newPassword) {
+            updateData.current_password = data.currentPassword;
+            updateData.new_password = data.newPassword;
+            updateData.confirm_new_password = data.confirmPassword;
+        }
+
+        dispatch(updateUserProfile(updateData))
+            .unwrap()
+            .then(() => {
+                toast("Your profile has been updated successfully!", {
+                    style: { backgroundColor: "#10b981", color: "white" },
+                });
+
+                setValue("currentPassword", "");
+                setValue("newPassword", "");
+                setValue("confirmPassword", "");
+            })
+            .catch((error) => {
+                toast(typeof error === "object" ? Object.values(error).flat().join(", ") : error.toString(), {
+                    style: { backgroundColor: "#ef4444", color: "white" },
+                });
+            });
     };
 
     return (
