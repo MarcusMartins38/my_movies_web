@@ -55,7 +55,7 @@ export default function AddWatchedMovieModal({ open, onClose, onMovieAdded }: Ad
 
     return (
         <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent className="bg-white text-black">
+            <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Add New Movie</DialogTitle>
                     <DialogDescription>Add a movie that you already watched.</DialogDescription>
