@@ -30,6 +30,10 @@ export const login = createAsyncThunk(
     async ({ username, password }: { username: string; password: string }, { rejectWithValue }) => {
         try {
             const res = await api.post("/token/", { username, password });
+
+            localStorage.setItem("accessToken", res.data.access);
+            localStorage.setItem("refreshToken", res.data.refresh);
+
             return {
                 accessToken: res.data.access,
                 refreshToken: res.data.refresh,
@@ -66,6 +70,8 @@ const authSlice = createSlice({
             state.accessToken = null;
             state.refreshToken = null;
             state.isAuthenticated = false;
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
         },
     },
     extraReducers: (builder) => {
