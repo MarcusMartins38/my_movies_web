@@ -1,4 +1,4 @@
-import { AuthLayout } from "@/components/AuthLayout";
+import { AuthPageShell } from "@/components/AuthPageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import axios from "@/lib/axios";
@@ -66,7 +66,7 @@ const Register = () => {
     };
 
     return (
-        <AuthLayout
+        <AuthPageShell
             title="Create an account"
             subtitle="Enter your details to create your account"
             link={<Link to="/login">Login</Link>}
@@ -109,7 +109,7 @@ const Register = () => {
                     )}
                 </Button>
             </form>
-        </AuthLayout>
+        </AuthPageShell>
     );
 };
 

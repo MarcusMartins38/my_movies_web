@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
+import { AuthLayout } from "./routes/AuthLayout";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { PublicRoute } from "./routes/PublicRoute";
 import { useAppSelector } from "./store/hooks";
@@ -33,10 +34,12 @@ function App() {
             <Toaster />
             <Routes>
                 <Route element={<PublicRoute isAuthenticated={isAuthenticated} />}>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route element={<AuthLayout />}>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/forgot-password" element={<ForgotPassword />} />
+                        <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
+                        <Route path="/register" element={<Register />} />
+                    </Route>
                 </Route>
 
                 <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>

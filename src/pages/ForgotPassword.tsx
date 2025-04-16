@@ -1,4 +1,4 @@
-import { AuthLayout } from "@/components/AuthLayout";
+import { AuthPageShell } from "@/components/AuthPageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import axios from "@/lib/axios";
@@ -45,7 +45,7 @@ const ForgotPassword = () => {
     };
 
     return (
-        <AuthLayout
+        <AuthPageShell
             title="Forgot your password?"
             subtitle="Enter your email to receive a reset link"
             link={<Link to="/login">Back to login</Link>}
@@ -71,7 +71,7 @@ const ForgotPassword = () => {
                     </Button>
                 </form>
             )}
-        </AuthLayout>
+        </AuthPageShell>
     );
 };
 

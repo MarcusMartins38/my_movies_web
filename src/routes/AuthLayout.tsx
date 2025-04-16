@@ -1,14 +1,8 @@
+import { Outlet } from "react-router-dom";
 import strangerThingsImg from "../assets/images/auth-layout.jpg";
-import { ThemeSwitch } from "./ThemeSwitch";
+import { ThemeSwitch } from "../components/ThemeSwitch";
 
-type AuthLayoutProps = {
-    children: React.ReactNode;
-    title: string;
-    subtitle: string;
-    link?: React.ReactNode;
-};
-
-export function AuthLayout({ children, title, subtitle, link }: AuthLayoutProps) {
+export function AuthLayout() {
     return (
         <div className="flex flex-col md:flex-row h-screen">
             <div
@@ -53,12 +47,7 @@ export function AuthLayout({ children, title, subtitle, link }: AuthLayoutProps)
                 <div className="absolute top-2 left-2 sm:right-2 sm:left-auto">
                     <ThemeSwitch />
                 </div>
-                <div className="w-full max-w-md">
-                    <div className="flex justify-end mb-8">{link}</div>
-                    <h1 className="text-3xl font-bold mb-2">{title}</h1>
-                    <p className="text-gray-500 mb-6">{subtitle}</p>
-                    {children}
-                </div>
+                <Outlet />
             </div>
         </div>
     );

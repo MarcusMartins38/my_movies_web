@@ -1,4 +1,4 @@
-import { AuthLayout } from "@/components/AuthLayout";
+import { AuthPageShell } from "@/components/AuthPageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -39,7 +39,7 @@ const Login = () => {
     };
 
     return (
-        <AuthLayout
+        <AuthPageShell
             title="Login to your account"
             subtitle="Enter your credentials to access your account"
             link={<Link to="/register">Create account</Link>}
@@ -74,7 +74,7 @@ const Login = () => {
                     )}
                 </Button>
             </form>
-        </AuthLayout>
+        </AuthPageShell>
     );
 };
 

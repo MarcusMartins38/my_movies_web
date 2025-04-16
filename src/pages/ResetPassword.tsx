@@ -1,4 +1,4 @@
-import { AuthLayout } from "@/components/AuthLayout";
+import { AuthPageShell } from "@/components/AuthPageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import axios from "@/lib/axios";
@@ -87,29 +87,29 @@ const ResetPassword = () => {
 
     if (isValidToken === null) {
         return (
-            <AuthLayout title="Checking link..." subtitle="Please wait while we check your reset link." link={<></>}>
+            <AuthPageShell title="Checking link..." subtitle="Please wait while we check your reset link." link={<></>}>
                 <div className="flex justify-center py-4">
                     <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
                 </div>
-            </AuthLayout>
+            </AuthPageShell>
         );
     }
 
     if (isValidToken === false) {
         return (
-            <AuthLayout title="Invalid link" subtitle="This password reset link is invalid or expired." link={<></>}>
+            <AuthPageShell title="Invalid link" subtitle="This password reset link is invalid or expired." link={<></>}>
                 <div className="text-center">
                     <p className="text-sm text-red-500 mb-4">{error || "Este link não é mais válido."}</p>
                     <Button onClick={() => navigate("/forgot-password")} className="mt-2">
                         Request new link
                     </Button>
                 </div>
-            </AuthLayout>
+            </AuthPageShell>
         );
     }
 
     return (
-        <AuthLayout
+        <AuthPageShell
             title="Redefinir sua senha"
             subtitle="Digite uma nova senha abaixo"
             link={<Link to="/login">Back to login</Link>}
@@ -142,7 +142,7 @@ const ResetPassword = () => {
                     </Button>
                 </form>
             )}
-        </AuthLayout>
+        </AuthPageShell>
     );
 };
 
