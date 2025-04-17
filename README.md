@@ -2,7 +2,7 @@
 
 Uma aplicação web para gerenciar os filmes que você já assistiu. Os usuários podem criar, editar, excluir e organizar seus filmes favoritos, além de manter suas informações de conta atualizadas.
 
-![Preview](./assets/screenshot.png) <!-- Coloque o caminho correto da imagem -->
+![Preview](./src/assets/images/home-readme.png)
 
 ## 🚀 Tecnologias
 
@@ -47,3 +47,4 @@ Uma aplicação web para gerenciar os filmes que você já assistiu. Os usuário
 
 Node Version: v21.7.2
 Clone o projeto e instale as dependências
+`npm i`
