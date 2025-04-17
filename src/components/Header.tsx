@@ -11,7 +11,7 @@ function Header() {
     const navigate = useNavigate();
 
     return (
-        <header className="flex justify-between items-center p-4">
+        <header className="w-full flex justify-between items-center p-4 fixed z-9 bg-white text-black dark:bg-neutral-900 dark:text-white">
             <div
                 onClick={() => navigate("/home")}
                 className="flex items-center cursor-pointer transition-all duration-300 hover:text-[var(--primary)] "

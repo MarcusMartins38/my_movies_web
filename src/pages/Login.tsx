@@ -1,6 +1,7 @@
 import { AuthPageShell } from "@/components/AuthPageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { login } from "@/store/slices/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -60,7 +61,7 @@ const Login = () => {
                             Forgot password?
                         </Link>
                     </div>
-                    <Input type="password" autoComplete="on" {...register("password")} disabled={loading} />
+                    <PasswordInput autoComplete="on" {...register("password")} disabled={loading} />
                     {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
                 </div>
 

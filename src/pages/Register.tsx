@@ -1,6 +1,7 @@
 import { AuthPageShell } from "@/components/AuthPageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import axios from "@/lib/axios";
 import { AppDispatch } from "@/store";
 import { login } from "@/store/slices/authSlice";
@@ -88,13 +89,13 @@ const Register = () => {
 
                 <div>
                     <label className="text-sm font-medium">Password</label>
-                    <Input type="password" autoComplete="on" {...register("password")} disabled={loading} />
+                    <PasswordInput autoComplete="on" {...register("password")} disabled={loading} />
                     {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
                 </div>
 
                 <div>
                     <label className="text-sm font-medium">Confirm Password</label>
-                    <Input type="password" autoComplete="on" {...register("confirmPassword")} disabled={loading} />
+                    <PasswordInput autoComplete="on" {...register("confirmPassword")} disabled={loading} />
                     {errors.confirmPassword && <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>}
                 </div>
 

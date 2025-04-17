@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PasswordInput } from "@/components/ui/password-input";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchUserProfile, updateUserProfile } from "@/store/slices/authSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -127,7 +128,7 @@ export default function AccountSettings() {
 
                             <div>
                                 <Label>Current Password</Label>
-                                <Input type="current-password" {...register("currentPassword")} />
+                                <PasswordInput {...register("currentPassword")} />
                                 {errors.currentPassword && (
                                     <p className="text-red-500 text-sm">{errors.currentPassword.message}</p>
                                 )}
@@ -135,7 +136,7 @@ export default function AccountSettings() {
 
                             <div>
                                 <Label>New Password</Label>
-                                <Input type="new-password" {...register("newPassword")} />
+                                <PasswordInput {...register("newPassword")} />
                                 {errors.newPassword && (
                                     <p className="text-red-500 text-sm">{errors.newPassword.message}</p>
                                 )}
@@ -143,7 +144,7 @@ export default function AccountSettings() {
 
                             <div>
                                 <Label>Confirm New Password</Label>
-                                <Input type="new-password" {...register("confirmPassword")} />
+                                <PasswordInput {...register("confirmPassword")} />
                                 {errors.confirmPassword && (
                                     <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
                                 )}

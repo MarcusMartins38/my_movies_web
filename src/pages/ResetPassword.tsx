@@ -1,6 +1,6 @@
 import { AuthPageShell } from "@/components/AuthPageShell";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import axios from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as axiosLib from "axios";
@@ -123,13 +123,13 @@ const ResetPassword = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
                         <label className="text-sm font-medium">New Password</label>
-                        <Input type="password" autoComplete="new-password" {...register("password")} />
+                        <PasswordInput autoComplete="new-password" {...register("password")} />
                         {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
                     </div>
 
                     <div>
                         <label className="text-sm font-medium">Confirm New Password</label>
-                        <Input type="password" autoComplete="new-password" {...register("confirmPassword")} />
+                        <PasswordInput autoComplete="new-password" {...register("confirmPassword")} />
                         {errors.confirmPassword && (
                             <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
                         )}
