@@ -1,54 +1,49 @@
-# React + TypeScript + Vite
+# 🎬 My Movies
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação web para gerenciar os filmes que você já assistiu. Os usuários podem criar, editar, excluir e organizar seus filmes favoritos, além de manter suas informações de conta atualizadas.
 
-Currently, two official plugins are available:
+![Preview](./assets/screenshot.png) <!-- Coloque o caminho correto da imagem -->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologias
 
-## Expanding the ESLint configuration
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [redux-persist](https://github.com/rt2zz/redux-persist)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📚 Funcionalidades
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 👤 Autenticação (Usuário não autenticado)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Login
+- Registro de nova conta
+- Recuperação de senha (Esqueci minha senha)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 👥 Conta do Usuário
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- Atualizar nome de usuário
+- Atualizar email
+- Alterar senha
+
+### 🎥 Gerenciamento de Filmes
+
+- Criar um novo filme assistido:
+    - Título
+    - Descrição
+    - URL da Imagem
+    - Avaliação (0 a 10)
+- Editar informações de um filme
+- Deletar filme da lista
+- Ordenar filmes por:
+    - Data de criação
+    - Título
+    - Avaliação
+
+## 📦 Instalação
+
+Node Version: v21.7.2
+Clone o projeto e instale as dependências
